@@ -1,0 +1,14 @@
+
+<div class="container">
+  <div class="row" *ngFor="let vCARD of QRLIST; let i = index">
+    <div class="col-sm mt-5">
+      <qrcode [qrdata]="vCARD" [size]="256" [level]="'L'"></qrcode>
+    </div>
+    <div class="col-sm mt-5">
+      {{viewLIST[i]['name']}}{{viewLIST[i]['phone']}} 
+    </div>
+    <div class="col-sm mt-5">
+      {{vCARD}} 
+    </div>
+  </div>
+</div>
