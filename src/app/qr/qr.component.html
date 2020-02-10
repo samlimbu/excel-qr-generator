@@ -1,13 +1,17 @@
 
+<div class="download-container">
+{{base64LIST.length}}
+<button (click)="onDownloadALL()" class="btn btn-secondary">Download All</button>
+</div>
 <div class="container">
-  <div class="row" *ngFor="let vCARD of QRLIST; let i = index">
+  <div class="row" *ngFor="let vCARD of VCARDLIST; let i = index">
     <div class="col-sm mt-5">
-      <qrcode [qrdata]="vCARD" [size]="256" [level]="'L'"></qrcode>
+      <qrcode [qrdata]="vCARD" [size]="256" [level]="'L'" [filename]="viewLIST[i]['name']+viewLIST[i]['phone']" (eventEmit)="onQRGenerate($event)"></qrcode>
     </div>
     <div class="col-sm mt-5">
       {{viewLIST[i]['name']}}{{viewLIST[i]['phone']}} 
     </div>
-    <div class="col-sm mt-5">
+    <div class="col-sm mt-5" style="font-size: 10px;">
       {{vCARD}} 
     </div>
   </div>

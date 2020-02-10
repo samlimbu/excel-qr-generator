@@ -9,14 +9,15 @@ import { CommService } from '../services/comm.service';
 export class QrComponent implements OnInit {
 
   public qrdata: string;
-  QRLIST = [];
+  VCARDLIST = [];
+  base64LIST = [];
   viewLIST;
   constructor(private commService: CommService) {
   }
   ngOnInit() {
     this.subscibeToCommService();
     this.qrdata = this.getVCardObj("name", "surname", "org", "mobile", "phone", "address");
-   // this.QRLIST = [this.getVCardObj("sam", "limbu", "National Banking Institute", "JANBI-0081", "9841759703", "Nepal"), this.qrdata, this.qrdata];
+    // this.VCARDLIST = [this.getVCardObj("sam", "limbu", "National Banking Institute", "JANBI-0081", "9841759703", "Nepal"), this.qrdata, this.qrdata];
   }
 
   subscibeToCommService() {
@@ -29,33 +30,67 @@ export class QrComponent implements OnInit {
   processExcelData(LIST) {
     this.viewLIST = LIST;
     for (let i = 0; i < LIST.length; i++) {
-     // console.log(JSON.parse(LIST[i]));
-      this.QRLIST.push(this.getVCardObj(LIST[i]['name'], LIST[i]['surname'], LIST[i]['organization'], LIST[i]['mobile'], LIST[i]['phone'], LIST[i]['address']));
+      // console.log(JSON.parse(LIST[i]));
+      this.VCARDLIST.push(this.getVCardObj(LIST[i]['name'], LIST[i]['surname'], LIST[i]['organization'], LIST[i]['mobile'], LIST[i]['phone'], LIST[i]['address']));
     }
     console.log(this.viewLIST);
-    
+
   }
 
 
   getVCardObj(name, surname, org, mobile, phone, address) {
-    //     return `BEGIN:VCARD
-    // VERSION:3.0
-    // N:${surname};${name}
-    // FN:${surname} ${name}
-    // ORG:${org}
-    // TEL;TYPE=mobile,oref:${mobile}
-    // TEL;TYPE=phone,oref:${phone}
-    // ADR:${address}
-    // EMAIL:
-    // END:VCARD`;
     return `BEGIN:VCARD
 VERSION:3.0
-N:${name};${surname}
+N:${surname};${name}
 ORG:${org}
 TEL;TYPE=CELL:${mobile}
 TEL:${phone}
 ADR:;;${address}
 END:VCARD`;
+  }
+
+  onQRGenerate(e) {
+    console.log(e);
+    this.base64LIST.push(e);
+  }
+
+
+  onDownloadALL() {
+    console.log('Create <a>');
+    if (this.base64LIST.length == 0) return;
+    let a = document.createElement("a"); //Create <a>
+    a.setAttribute('download', null);
+    a.style.display = 'none';
+    this.base64LIST.forEach((item) => {
+      //a.target = '_parent';
+      a.pathname = 'data/file6.txt';
+      a.href = item['base64Image']; //Image Base64 Goes here
+      a.download = `${item['filename']}.png`; //File name Here
+      a.click();
+    })
+
+
+  }
+  downloadAll() {
+    let files = [
+      ['file1.csv', 'data:text/csv;charset=utf8,' +
+        encodeURIComponent('my,csv,file\and,so,on')],
+      ['file2.txt', 'data:text/plain;charset=utf8,' +
+        encodeURIComponent('this script can do what I need.')],
+      ['file3.js', 'data:text/javascriptcharset=utf8,' +
+        encodeURIComponent('alert(\'You can donate me your house if you like this script :-) \')')]
+    ];
+    if (files.length == 0) return;
+    let file = files.pop();
+    let theAnchor = document.createElement("a");
+    theAnchor.setAttribute('href', file[1])
+    theAnchor.setAttribute('download', file[0])
+    // Firefox does not fires click if the link is outside
+    // the DOM
+    theAnchor.append('body');
+
+    theAnchor[0].click();
+    theAnchor.remove();
   }
 
   test() {

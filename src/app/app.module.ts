@@ -3,20 +3,24 @@ import { NgModule } from '@angular/core';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QRCodeModule } from 'angularx-qrcode-cil';
 import { SheetComponent } from './sheet/sheet.component';
 import { QrComponent } from './qr/qr.component';
+import { TessComponent } from './tess/tess.component';
+import { QRCodeModule } from './angularx-qrcode/angularx-qrcode.module';
+
 @NgModule({
   declarations: [
     AppComponent,
     SheetComponent,
-    QrComponent
+    QrComponent,
+    TessComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     QRCodeModule,
-    NgbModule
+    NgbModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
