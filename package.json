@@ -22,7 +22,7 @@
     "@ng-bootstrap/ng-bootstrap": "~4",
     "core-js": "^2.5.4",
     "i": "^0.3.6",
-    "npm": "^6.13.7",
+    "npm": "^6.14.6",
     "qrcodecil": "^1.0.2",
     "qrcodejs": "^1.0.0",
     "rxjs": "~6.3.3",
