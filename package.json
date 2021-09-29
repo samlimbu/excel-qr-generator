@@ -21,7 +21,7 @@
     "@angular/router": "~7.2.0",
     "@ng-bootstrap/ng-bootstrap": "~4",
     "core-js": "^2.5.4",
-    "i": "^0.3.6",
+    "i": "^0.3.7",
     "npm": "^6.13.7",
     "qrcodecil": "^1.0.2",
     "qrcodejs": "^1.0.0",
